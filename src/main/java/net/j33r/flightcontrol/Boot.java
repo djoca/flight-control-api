@@ -3,6 +3,9 @@ package net.j33r.flightcontrol;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * This class is responsible to boot the server
+ */
 @SpringBootApplication
 public class Boot {
 
