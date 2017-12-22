@@ -52,6 +52,17 @@ public class FlightControlAPIControllerTest {
         final String jsonResponse = response.getContentAsString();
         final JSONArray jsonArray = new JSONArray(jsonResponse);
 
+        // {id: %s, flightNumber: '%s', companyName: '%s', origin: '%s',
+        // destination: '%s', flightStatus: '%s', departureTime: '%s'}
+
+        assertEquals(1, jsonArray.getJSONObject(0).getInt("id"));
+        assertEquals(123, jsonArray.getJSONObject(0).getInt("flightNumber"));
+        assertEquals("Azul", jsonArray.getJSONObject(0).getString("companyName"));
+        assertEquals("SJK", jsonArray.getJSONObject(0).getString("origin"));
+        assertEquals("BSB", jsonArray.getJSONObject(0).getString("destination"));
+        assertEquals("FLYING", jsonArray.getJSONObject(0).getString("flightStatus"));
+        assertEquals("21/12/2017 18:25", jsonArray.getJSONObject(0).getString("departureTime"));
+
         assertTrue(jsonArray.length() == 2);
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
