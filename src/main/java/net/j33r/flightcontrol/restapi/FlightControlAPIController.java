@@ -26,29 +26,8 @@ public class FlightControlAPIController {
      * @return a JSON String with flight informations.
      */
     @RequestMapping(value = "/flights", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String flights() {
-        final String jsonFormat = "{id: %s, flightNumber: '%s', companyName: '%s', origin: '%s', destination: '%s', flightStatus: '%s', departureTime: '%s'}";
-
+    public FlightListWrapper flights() {
         final List<Flight> flights = applicationService.retrieveFlights();
-
-        final StringBuilder builder = new StringBuilder();
-
-        builder.append("[");
-        boolean first = true;
-
-        for (final Flight flight : flights) {
-            if (!first) {
-                builder.append(",");
-            }
-            first = false;
-
-            builder.append(String.format(jsonFormat, flight.getId(), flight.getNumber(), flight.getCompanyName(),
-                    flight.getOrigin(), flight.getDestination(), flight.getStatus(),
-                    flight.getFormatedDepartureTime()));
-        }
-
-        builder.append("]");
-
-        return builder.toString();
+        return new FlightListWrapper(flights);
     }
 }
