@@ -81,8 +81,41 @@ public class Flight {
     @Column(name = "ARRIVAL_TIME")
     private final LocalDateTime arrivalTime;
 
-    public String getFormatedDepartureTime() {
-        return departureTime == null ? null : DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(departureTime);
+    /**
+     * Retrieves the scheduled departure time with the format "dd/MM/yyyy HH:mm".
+     *
+     * @return a formated string
+     */
+    public String getFormattedScheduledDepartureTime() {
+        return getFormattedDateTime(scheduledDepartureTime);
     }
 
+    /**
+     * Retrieves the departure time with the format "dd/MM/yyyy HH:mm".
+     *
+     * @return a formated string
+     */
+    public String getFormattedDepartureTime() {
+        return getFormattedDateTime(departureTime);
+    }
+
+    /**
+     * Retrieves the arrival time with the format "dd/MM/yyyy HH:mm".
+     *
+     * @return a formated string
+     */
+    public String getFormattedArrivalTime() {
+        return getFormattedDateTime(arrivalTime);
+    }
+
+    /**
+     * Converts a LocalDateTime into a String with the format "dd/MM/yyyy HH:mm".
+     *
+     * @param time
+     *            a LocalDateTime object
+     * @return a formated String
+     */
+    private String getFormattedDateTime(LocalDateTime time) {
+        return time == null ? null : DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(time);
+    }
 }
