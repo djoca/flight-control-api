@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/djoca/flight-control-api.svg?branch=master)](https://travis-ci.org/djoca/flight-control-api)
+
 # Flight Control API
 
 This is a simple Flight Control Rest API made with Spring Boot. 
