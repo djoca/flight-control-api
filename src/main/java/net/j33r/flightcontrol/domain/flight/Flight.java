@@ -29,7 +29,7 @@ public class Flight {
      */
     @SuppressWarnings("unused")
     private Flight() {
-        this(null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null, null, null, null);
     }
 
     /**
@@ -50,6 +50,20 @@ public class Flight {
      */
     @Column(name = "COMPANY_NAME")
     private final String companyName;
+
+    /**
+     * The flight aircraft
+     */
+    @ManyToOne
+    @JoinColumn(name = "AIRCRAFT_ID")
+    private final Aircraft aircraft;
+
+    /**
+     * The flight pilot
+     */
+    @ManyToOne
+    @JoinColumn(name = "PILOT_ID")
+    private final Pilot pilot;
 
     /**
      * The city of origin

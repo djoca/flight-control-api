@@ -5,11 +5,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.j33r.flightcontrol.domain.flight.Aircraft;
 import net.j33r.flightcontrol.domain.flight.Airport;
 import net.j33r.flightcontrol.domain.flight.City;
 import net.j33r.flightcontrol.domain.flight.Flight;
 import net.j33r.flightcontrol.domain.flight.FlightDateTime;
 import net.j33r.flightcontrol.domain.flight.FlightStatus;
+import net.j33r.flightcontrol.domain.flight.Pilot;
 
 public class FlightTest {
 
@@ -23,8 +25,12 @@ public class FlightTest {
         final City destinationCity = new City((long) 1, "Paris");
         final Airport destinationAirport = new Airport((long) 1, "CDG", "Aéroport Charles de Gaule", destinationCity);
 
-        flight = new Flight((long) 1, (short) 4152, "TAM", originAirport, destinationAirport, FlightStatus.LANDED,
-                new FlightDateTime(2017, 8, 28, 14, 13), new FlightDateTime(2016, 9, 13, 15, 20),
+        final Pilot pilot = new Pilot((long) 1, "Jack Black");
+
+        final Aircraft aircraft = new Aircraft((long) 1, "Airbus", "A330", "PP-FTS", (short) 230, 2830, 230);
+
+        flight = new Flight((long) 1, (short) 4152, "TAM", aircraft, pilot, originAirport, destinationAirport,
+                FlightStatus.LANDED, new FlightDateTime(2017, 8, 28, 14, 13), new FlightDateTime(2016, 9, 13, 15, 20),
                 new FlightDateTime(2017, 11, 30, 20, 10));
     }
 
