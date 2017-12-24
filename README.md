@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/djoca/flight-control-api.svg?branch=master)](https://travis-ci.org/djoca/flight-control-api)
+[![Coverage Status](https://coveralls.io/repos/github/djoca/flight-control-api/badge.svg?branch=master)](https://coveralls.io/github/djoca/flight-control-api?branch=master)
 
 # Flight Control API
 
