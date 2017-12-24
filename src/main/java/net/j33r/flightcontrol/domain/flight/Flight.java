@@ -1,11 +1,14 @@
 package net.j33r.flightcontrol.domain.flight;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +24,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Flight {
 
+    /**
+     * Default constructor required by JPA
+     */
     @SuppressWarnings("unused")
     private Flight() {
         this(null, null, null, null, null, null, null, null, null);
@@ -30,7 +36,7 @@ public class Flight {
      * The flight identifier
      */
     @Id
-    @Column(name = "ID")
+    @Column(name = "FLIGHT_ID")
     private final Long id;
 
     /**
@@ -48,46 +54,53 @@ public class Flight {
     /**
      * The city of origin
      */
-    @Column(name = "ORIGIN")
-    private final String origin;
+    @ManyToOne
+    @JoinColumn(name = "ORIGIN_AIRPORT_ID")
+    private final Airport origin;
 
     /**
      * The city of destination
      */
-    @Column(name = "DESTINATION")
-    private final String destination;
+    @ManyToOne
+    @JoinColumn(name = "DESTINATION_AIRPORT_ID")
+    private final Airport destination;
 
     /**
      * The flight status
      */
     @Column(name = "STATUS")
-    private final String status;
+    @Enumerated(EnumType.STRING)
+    private final FlightStatus status;
 
     /**
      * The date and time of the scheduled departure time
      */
-    @Column(name = "SCHEDULED_DEPARTURE_TIME")
-    private final LocalDateTime scheduledDepartureTime;
+    @Embedded
+    @AttributeOverride(name = "dateTime", column = @Column(name = "SCHEDULED_DEPARTURE_TIME"))
+    private final FlightDateTime scheduledDepartureTime;
 
     /**
      * The date and time of departure
      */
-    @Column(name = "DEPARTURE_TIME")
-    private final LocalDateTime departureTime;
+    @Embedded
+    @AttributeOverride(name = "dateTime", column = @Column(name = "DEPARTURE_TIME"))
+    private final FlightDateTime departureTime;
 
     /**
      * The date and time of actual arrival time
      */
-    @Column(name = "ARRIVAL_TIME")
-    private final LocalDateTime arrivalTime;
+    @Embedded
+    @AttributeOverride(name = "dateTime", column = @Column(name = "ARRIVAL_TIME"))
+    private final FlightDateTime arrivalTime;
 
     /**
-     * Retrieves the scheduled departure time with the format "dd/MM/yyyy HH:mm".
+     * Retrieves the scheduled departure time with the format "dd/MM/yyyy
+     * HH:mm".
      *
      * @return a formated string
      */
     public String getFormattedScheduledDepartureTime() {
-        return getFormattedDateTime(scheduledDepartureTime);
+        return scheduledDepartureTime == null ? null : scheduledDepartureTime.getFormattedDateTime();
     }
 
     /**
@@ -96,7 +109,7 @@ public class Flight {
      * @return a formated string
      */
     public String getFormattedDepartureTime() {
-        return getFormattedDateTime(departureTime);
+        return departureTime == null ? null : departureTime.getFormattedDateTime();
     }
 
     /**
@@ -105,17 +118,34 @@ public class Flight {
      * @return a formated string
      */
     public String getFormattedArrivalTime() {
-        return getFormattedDateTime(arrivalTime);
+        return arrivalTime == null ? null : arrivalTime.getFormattedDateTime();
     }
 
     /**
-     * Converts a LocalDateTime into a String with the format "dd/MM/yyyy HH:mm".
+     * Returns the origin airport IATA code.
      *
-     * @param time
-     *            a LocalDateTime object
-     * @return a formated String
+     * @return the IATA code.
      */
-    private String getFormattedDateTime(LocalDateTime time) {
-        return time == null ? null : DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(time);
+    public String getOriginAirportIataCode() {
+        return origin.getIataCode();
     }
+
+    /**
+     * Returns the destination airport IATA code.
+     *
+     * @return the IATA code.
+     */
+    public String getDestinationAirportIataCode() {
+        return destination.getIataCode();
+    }
+
+    /**
+     * Returns the flight status as a String
+     *
+     * @return the flight status
+     */
+    public String getStatusString() {
+        return status.toString();
+    }
+
 }

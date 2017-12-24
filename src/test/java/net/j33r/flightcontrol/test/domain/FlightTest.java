@@ -2,12 +2,14 @@ package net.j33r.flightcontrol.test.domain;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.LocalDateTime;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import net.j33r.flightcontrol.domain.flight.Airport;
+import net.j33r.flightcontrol.domain.flight.City;
 import net.j33r.flightcontrol.domain.flight.Flight;
+import net.j33r.flightcontrol.domain.flight.FlightDateTime;
+import net.j33r.flightcontrol.domain.flight.FlightStatus;
 
 public class FlightTest {
 
@@ -15,9 +17,15 @@ public class FlightTest {
 
     @Before
     public void setup() {
-        flight = new Flight((long) 1, (short) 4152, "TAM", "GRU", "CDG", "LANDED",
-                LocalDateTime.of(2017, 8, 28, 14, 13), LocalDateTime.of(2016, 9, 13, 15, 20),
-                LocalDateTime.of(2017, 11, 30, 20, 10));
+        final City originCity = new City((long) 1, "São Paulo");
+        final Airport originAirport = new Airport((long) 1, "GRU", "Aeroporto de Guarulhos", originCity);
+
+        final City destinationCity = new City((long) 1, "Paris");
+        final Airport destinationAirport = new Airport((long) 1, "CDG", "Aéroport Charles de Gaule", destinationCity);
+
+        flight = new Flight((long) 1, (short) 4152, "TAM", originAirport, destinationAirport, FlightStatus.LANDED,
+                new FlightDateTime(2017, 8, 28, 14, 13), new FlightDateTime(2016, 9, 13, 15, 20),
+                new FlightDateTime(2017, 11, 30, 20, 10));
     }
 
     @Test
@@ -33,6 +41,17 @@ public class FlightTest {
     @Test
     public void testFormattedArrivalTime() {
         assertEquals("30/11/2017 20:10", flight.getFormattedArrivalTime());
+    }
+
+    @Test
+    public void testAirports() {
+        assertEquals("GRU", flight.getOriginAirportIataCode());
+        assertEquals("CDG", flight.getDestinationAirportIataCode());
+    }
+
+    @Test
+    public void testFlightStatus() {
+        assertEquals("LANDED", flight.getStatusString());
     }
 
 }

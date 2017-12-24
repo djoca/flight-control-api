@@ -22,7 +22,7 @@ public class FlightService {
      * @return a List of Flight objects
      */
     public List<Flight> retrieveFlights() {
-        return Collections.unmodifiableList(repository.findAll());
+        return Collections.unmodifiableList(repository.findAllFlights());
     }
 
 }
