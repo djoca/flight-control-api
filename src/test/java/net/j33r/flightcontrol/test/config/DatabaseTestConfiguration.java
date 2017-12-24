@@ -1,4 +1,4 @@
-package net.j33r.flightcontrol.config;
+package net.j33r.flightcontrol.test.config;
 
 import javax.sql.DataSource;
 
@@ -12,28 +12,22 @@ import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 /**
- * This class contains all the database configuration for the Flight Control API
- * system.
- *
- * As this is an API server example, the database used is a embedded one. As
- * such, the configuration parameter values are included inside this class for
- * simplicity sake. On a production system, the parameter values should be
- * retrieved using environment variables or, if an application server is used, a
- * jndi datasource.
+ * This class contains the database configuration used in tests.
  */
 @Configuration
-@Profile("default")
-public class DatabaseConfiguration {
+@Profile("test")
+public class DatabaseTestConfiguration {
 
     /**
-     * Configure the {@link DataSource} used by the application
+     * Configure the {@link DataSource} used by the integration tests
      *
      * @return an instance of {@link DataSource}
      */
+
     @Bean
     public DataSource dataSource() {
         final DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.url("jdbc:hsqldb:mem:flightdb");
+        dataSourceBuilder.url("jdbc:hsqldb:mem:flightdb-test");
         dataSourceBuilder.username("sa");
         dataSourceBuilder.password("");
         dataSourceBuilder.driverClassName("org.hsqldb.jdbcDriver");
@@ -42,7 +36,7 @@ public class DatabaseConfiguration {
 
     /**
      * Creates a {@link DatabasePopulator} and executes the registered SQL
-     * scripts used by the application.
+     * scripts used by the integration tests.
      *
      * @param dataSource
      *            an instance of the {@link DataSource} class.
@@ -51,11 +45,12 @@ public class DatabaseConfiguration {
     @Bean
     public DatabasePopulator databasePopulator(DataSource dataSource) {
         final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.addScript(new ClassPathResource("schema-default.sql"));
-        populator.addScript(new ClassPathResource("data-default.sql"));
+        populator.addScript(new ClassPathResource("schema-test.sql"));
+        populator.addScript(new ClassPathResource("data-test.sql"));
 
         DatabasePopulatorUtils.execute(populator, dataSource);
 
         return populator;
     }
+
 }

@@ -6,12 +6,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -27,6 +29,7 @@ import net.j33r.flightcontrol.test.config.SpringContextTestConfiguration;
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { SpringContextTestConfiguration.class })
+@ActiveProfiles("test")
 public class FlightControlAPIControllerTest {
 
     private MockMvc mockMvc;
@@ -55,13 +58,16 @@ public class FlightControlAPIControllerTest {
         // {id: %s, flightNumber: '%s', companyName: '%s', origin: '%s',
         // destination: '%s', flightStatus: '%s', departureTime: '%s'}
 
-        assertEquals(1, jsonArray.getJSONObject(0).getInt("id"));
-        assertEquals(123, jsonArray.getJSONObject(0).getInt("flightNumber"));
-        assertEquals("Azul", jsonArray.getJSONObject(0).getString("companyName"));
-        assertEquals("SJK", jsonArray.getJSONObject(0).getString("origin"));
-        assertEquals("BSB", jsonArray.getJSONObject(0).getString("destination"));
-        assertEquals("FLYING", jsonArray.getJSONObject(0).getString("flightStatus"));
-        assertEquals("21/12/2017 18:25", jsonArray.getJSONObject(0).getString("departureTime"));
+        final JSONObject jsonObject = jsonArray.getJSONObject(0);
+        assertEquals(1, jsonObject.getInt("id"));
+        assertEquals(123, jsonObject.getInt("flightNumber"));
+        assertEquals("TAM", jsonObject.getString("companyName"));
+        assertEquals("SJK", jsonObject.getString("origin"));
+        assertEquals("RIO", jsonObject.getString("destination"));
+        assertEquals("FLYING", jsonObject.getString("flightStatus"));
+        assertEquals("21/12/2017 18:20", jsonObject.getString("scheduledDepartureTime"));
+        assertEquals("21/12/2017 18:25", jsonObject.getString("departureTime"));
+        assertTrue(jsonObject.isNull("arrivalTime"));
 
         assertTrue(jsonArray.length() == 2);
         assertEquals(HttpStatus.OK.value(), response.getStatus());
