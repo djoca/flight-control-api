@@ -20,14 +20,6 @@ import lombok.Getter;
 public class Airport {
 
     /**
-     * Default constructor required by JPA
-     */
-    @SuppressWarnings("unused")
-    private Airport() {
-        this(null, null, null, null);
-    }
-
-    /**
      * The airport identifier
      */
     @Id
@@ -52,4 +44,13 @@ public class Airport {
     @ManyToOne
     @JoinColumn(name = "CITY_ID")
     private final City city;
+
+    /**
+     * Default constructor required by JPA
+     */
+    @SuppressWarnings("unused")
+    private Airport() {
+        this(null, null, null, null);
+    }
+
 }

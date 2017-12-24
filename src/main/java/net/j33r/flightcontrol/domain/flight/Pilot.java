@@ -17,10 +17,16 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Pilot {
 
+    /**
+     * The pilot identifier
+     */
     @Id
     @Column(name = "PILOT_ID")
     private final Long id;
 
+    /**
+     * The pilot name
+     */
     @Column(name = "PILOT_NAME")
     private final String name;
 

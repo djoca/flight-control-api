@@ -18,14 +18,6 @@ import lombok.Getter;
 public class City {
 
     /**
-     * Default constructor required by JPA
-     */
-    @SuppressWarnings("unused")
-    private City() {
-        this(null, null);
-    }
-
-    /**
      * The city identifier
      */
     @Id
@@ -37,5 +29,13 @@ public class City {
      */
     @Column(name = "CITY_NAME")
     private final String name;
+
+    /**
+     * Default constructor required by JPA
+     */
+    @SuppressWarnings("unused")
+    private City() {
+        this(null, null);
+    }
 
 }

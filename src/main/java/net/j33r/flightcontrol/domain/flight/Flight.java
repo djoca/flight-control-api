@@ -25,14 +25,6 @@ import lombok.Getter;
 public class Flight {
 
     /**
-     * Default constructor required by JPA
-     */
-    @SuppressWarnings("unused")
-    private Flight() {
-        this(null, null, null, null, null, null, null, null, null, null, null);
-    }
-
-    /**
      * The flight identifier
      */
     @Id
@@ -106,6 +98,14 @@ public class Flight {
     @Embedded
     @AttributeOverride(name = "dateTime", column = @Column(name = "ARRIVAL_TIME"))
     private final FlightDateTime arrivalTime;
+
+    /**
+     * Default constructor required by JPA
+     */
+    @SuppressWarnings("unused")
+    private Flight() {
+        this(null, null, null, null, null, null, null, null, null, null, null);
+    }
 
     /**
      * Retrieves the scheduled departure time with the format "dd/MM/yyyy
