@@ -162,4 +162,130 @@ public class Flight {
         return status.toString();
     }
 
+    /**
+     * Returns the origin airport identifier
+     *
+     * @return the airport identifier
+     */
+    public Long getOriginAirportId() {
+        return origin.getId();
+    }
+
+    /**
+     * Returns the origin airport name
+     *
+     * @return the airport name
+     */
+    public String getOriginAirportName() {
+        return origin.getName();
+    }
+
+    /**
+     * Returns the origin city identifier
+     *
+     * @return the city identifier
+     */
+    public Long getOriginCityId() {
+        return origin.getCityId();
+    }
+
+    /**
+     * Returns the origin airport name
+     *
+     * @return the airport name
+     */
+    public String getOriginCityName() {
+        return origin.getCityName();
+    }
+
+    /**
+     * Returns the destination airport identifier
+     *
+     * @return the airport identifier
+     */
+    public Long getDestinationAirportId() {
+        return destination.getId();
+    }
+
+    /**
+     * Returns the destination airport name
+     *
+     * @return the airport name
+     */
+    public String getDestinationAirportName() {
+        return destination.getName();
+    }
+
+    /**
+     * Returns the destination city identifier
+     *
+     * @return the city identifier
+     */
+    public Long getDestinationCityId() {
+        return destination.getCityId();
+    }
+
+    /**
+     * Returns the destination city name
+     *
+     * @return the city name
+     */
+    public String getDestinationCityName() {
+        return destination.getCityName();
+    }
+
+    /**
+     * Returns the identifier of the aircraft used on this flight
+     *
+     * @return the aircraft identifier
+     */
+    public Long getAircraftId() {
+        return aircraft.getId();
+    }
+
+    /**
+     * Returns the manufacturer of the aircraft used on this flight
+     *
+     * @return the aircraft manufacturer
+     */
+    public String getAircraftManufacturer() {
+        return aircraft.getManufacturer();
+    }
+
+    /**
+     * Returns the model of the aircraft used on this flight
+     *
+     * @return the aircraft model
+     */
+    public String getAircraftModel() {
+        return aircraft.getModel();
+    }
+
+    /**
+     * Returns the registry of the aircraft used on this flight
+     *
+     * @return the aircraft registry
+     */
+    public String getAircraftRegistry() {
+        return aircraft.getRegistry();
+    }
+
+    /**
+     * Returns the pilot identifier responsible for this flight
+     *
+     * @return the pilot identifier
+     */
+    public Long getPilotId() {
+        return pilot.getId();
+    }
+
+    /**
+     * Returns the pilot name responsible for this flight
+     *
+     * @return the pilot name
+     */
+    public String getPilotName() {
+        return pilot.getName();
+    }
+
 }

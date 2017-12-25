@@ -26,4 +26,16 @@ public class FlightControlApplicationService {
     public List<Flight> retrieveFlights() {
         return flightService.retrieveFlights();
     }
+
+    /**
+     * Retrieve a Flight by its identifier
+     *
+     * @param id
+     *            the flight identified
+     * @return a Flight
+     */
+    public Flight retrieveFlight(Long id) {
+        return flightService.retrieveFlight(id);
+    }
+
 }

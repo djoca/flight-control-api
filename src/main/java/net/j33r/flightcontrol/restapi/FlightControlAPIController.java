@@ -3,6 +3,7 @@ package net.j33r.flightcontrol.restapi;
 import java.util.List;
 
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,5 +30,16 @@ public class FlightControlAPIController {
     public FlightListWrapper flights() {
         final List<Flight> flights = applicationService.retrieveFlights();
         return new FlightListWrapper(flights);
+    }
+
+    /**
+     * Return a JSON String containing a flight details.
+     *
+     * @return a JSON String with flight information.
+     */
+    @RequestMapping(value = "/flights/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public FlightWrapper flightDetails(@PathVariable final Long id) {
+        final Flight flight = applicationService.retrieveFlight(id);
+        return new FlightWrapper(flight);
     }
 }

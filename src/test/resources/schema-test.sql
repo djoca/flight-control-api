@@ -15,8 +15,8 @@ create table airport (
 
 create table aircraft (
   aircraft_id numeric,
-  aircraft_model varchar(20),
   aircraft_manufacturer varchar(40),
+  aircraft_model varchar(20),
   aircraft_registry varchar(10),
   number_seats numeric,
   flight_hours numeric,

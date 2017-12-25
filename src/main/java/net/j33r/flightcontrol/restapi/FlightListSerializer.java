@@ -15,6 +15,9 @@ import net.j33r.flightcontrol.domain.flight.Flight;
  */
 public class FlightListSerializer extends JsonSerializer<FlightListWrapper> {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void serialize(final FlightListWrapper flightWrapper, final JsonGenerator jsonGenerator,
             final SerializerProvider provider) throws IOException, JsonProcessingException {

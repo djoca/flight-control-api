@@ -53,4 +53,22 @@ public class Airport {
         this(null, null, null, null);
     }
 
+    /**
+     * The identifier of the city where this airport resides
+     *
+     * @return the city identifier
+     */
+    public Long getCityId() {
+        return city.getId();
+    }
+
+    /**
+     * The name of the city where this airport resides
+     *
+     * @return the city identifier
+     */
+    public String getCityName() {
+        return city.getName();
+    }
+
 }

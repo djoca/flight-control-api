@@ -25,4 +25,15 @@ public class FlightService {
         return Collections.unmodifiableList(repository.findAllFlights());
     }
 
+    /**
+     * Retrieve a Flight by its identifier
+     *
+     * @param id
+     *            the flight identified
+     * @return a Flight
+     */
+    public Flight retrieveFlight(final Long id) {
+        return repository.findOne(id);
+    }
+
 }

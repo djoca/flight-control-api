@@ -55,8 +55,8 @@ public class FlightControlAPIControllerTest {
         final String jsonResponse = response.getContentAsString();
         final JSONArray jsonArray = new JSONArray(jsonResponse);
 
-        // {id: %s, flightNumber: '%s', companyName: '%s', origin: '%s',
-        // destination: '%s', flightStatus: '%s', departureTime: '%s'}
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertTrue(jsonArray.length() == 2);
 
         final JSONObject jsonObject = jsonArray.getJSONObject(0);
         assertEquals(1, jsonObject.getInt("id"));
@@ -68,9 +68,63 @@ public class FlightControlAPIControllerTest {
         assertEquals("21/12/2017 18:20", jsonObject.getString("scheduledDepartureTime"));
         assertEquals("21/12/2017 18:25", jsonObject.getString("departureTime"));
         assertTrue(jsonObject.isNull("arrivalTime"));
-
-        assertTrue(jsonArray.length() == 2);
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
+    /**
+     * Tests if the API returns a valid JSON response with detailed flight
+     * information.
+     *
+     * @throws Exception
+     *             if anything goes wrong
+     */
+    @Test
+    public void retrieveFlight() throws Exception {
+        final ResultActions action = mockMvc.perform(get("/flights/1"));
+        final MockHttpServletResponse response = action.andReturn().getResponse();
+        final String jsonResponse = response.getContentAsString();
+        final JSONObject jsonObject = new JSONObject(jsonResponse);
+
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+        assertEquals(1, jsonObject.getInt("id"));
+        assertEquals(123, jsonObject.getInt("flightNumber"));
+        assertEquals("TAM", jsonObject.getString("companyName"));
+
+        // Aircraft
+        final JSONObject aircraft = jsonObject.getJSONObject("aircraft");
+        assertEquals(1, aircraft.getInt("id"));
+        assertEquals("175", aircraft.getString("model"));
+        assertEquals("Embraer", aircraft.getString("manufacturer"));
+        assertEquals("PT-CAS", aircraft.getString("registry"));
+
+        // Pilot
+        final JSONObject pilot = jsonObject.getJSONObject("pilot");
+        assertEquals(1, pilot.getInt("id"));
+        assertEquals("Jack Black", pilot.getString("name"));
+
+        // Origin
+        final JSONObject origin = jsonObject.getJSONObject("origin");
+        assertEquals(1, origin.getInt("id"));
+        assertEquals("SJK", origin.getString("iataCode"));
+        assertEquals("Aeroporto de São José dos Campos", origin.getString("name"));
+
+        final JSONObject originCity = origin.getJSONObject("city");
+        assertEquals(1, originCity.getInt("id"));
+        assertEquals("São José dos Campos", originCity.getString("name"));
+
+        // Destination
+        final JSONObject destination = jsonObject.getJSONObject("destination");
+        assertEquals(4, destination.getInt("id"));
+        assertEquals("RIO", destination.getString("iataCode"));
+        assertEquals("Aeroporto Internacional Antônio Carlos Jobim", destination.getString("name"));
+
+        final JSONObject destinationCity = destination.getJSONObject("city");
+        assertEquals(3, destinationCity.getInt("id"));
+        assertEquals("Rio de Janeiro", destinationCity.getString("name"));
+
+        assertEquals("FLYING", jsonObject.getString("flightStatus"));
+        assertEquals("21/12/2017 18:20", jsonObject.getString("scheduledDepartureTime"));
+        assertEquals("21/12/2017 18:25", jsonObject.getString("departureTime"));
+        assertTrue(jsonObject.isNull("arrivalTime"));
+    }
 }

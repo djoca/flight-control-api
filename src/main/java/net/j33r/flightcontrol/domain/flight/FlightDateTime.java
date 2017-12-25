@@ -16,7 +16,7 @@ public class FlightDateTime {
 
     private final LocalDateTime dateTime;
 
-    public FlightDateTime(int year, int month, int day, int hour, int minutes) {
+    public FlightDateTime(final int year, final int month, final int day, final int hour, final int minutes) {
         dateTime = LocalDateTime.of(year, month, day, hour, minutes);
     }
 
