@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import net.j33r.flightcontrol.domain.flight.Flight;
+import net.j33r.flightcontrol.domain.flight.FlightException;
+import net.j33r.flightcontrol.domain.flight.FlightNotFoundException;
 import net.j33r.flightcontrol.domain.flight.FlightService;
 
 /**
@@ -33,8 +35,10 @@ public class FlightControlApplicationService {
      * @param id
      *            the flight identified
      * @return a Flight
+     * @throws FlightNotFoundException
+     *             if the requested id is not found.
      */
-    public Flight retrieveFlight(Long id) {
+    public Flight retrieveFlight(final Long id) throws FlightException {
         return flightService.retrieveFlight(id);
     }
 

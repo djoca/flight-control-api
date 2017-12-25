@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 import net.j33r.flightcontrol.domain.FlightControlApplicationService;
 import net.j33r.flightcontrol.domain.flight.Flight;
+import net.j33r.flightcontrol.domain.flight.FlightException;
+import net.j33r.flightcontrol.domain.flight.FlightNotFoundException;
 
 /**
  * Flight Control API Rest controller.
@@ -36,9 +38,11 @@ public class FlightControlAPIController {
      * Return a JSON String containing a flight details.
      *
      * @return a JSON String with flight information.
+     * @throws FlightNotFoundException
+     *             if the requested id is not found.
      */
     @RequestMapping(value = "/flights/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public FlightWrapper flightDetails(@PathVariable final Long id) {
+    public FlightWrapper flightDetails(@PathVariable final Long id) throws FlightException {
         final Flight flight = applicationService.retrieveFlight(id);
         return new FlightWrapper(flight);
     }

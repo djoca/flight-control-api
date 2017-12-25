@@ -31,9 +31,17 @@ public class FlightService {
      * @param id
      *            the flight identified
      * @return a Flight
+     * @throws FlightNotFoundException
+     *             if the requested id is not found.
      */
-    public Flight retrieveFlight(final Long id) {
-        return repository.findOne(id);
+    public Flight retrieveFlight(final Long id) throws FlightException {
+        final Flight flight = repository.findOne(id);
+
+        if (flight == null) {
+            throw new FlightNotFoundException(id);
+        }
+
+        return flight;
     }
 
 }

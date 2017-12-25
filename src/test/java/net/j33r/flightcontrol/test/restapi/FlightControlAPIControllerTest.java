@@ -127,4 +127,17 @@ public class FlightControlAPIControllerTest {
         assertEquals("21/12/2017 18:25", jsonObject.getString("departureTime"));
         assertTrue(jsonObject.isNull("arrivalTime"));
     }
+
+    /**
+     * Tests the retrieval of inexistent flight
+     *
+     * @throws Exception
+     */
+    @Test
+    public void retrieveInexistentFlight() throws Exception {
+        final ResultActions action = mockMvc.perform(get("/flights/142"));
+        final MockHttpServletResponse response = action.andReturn().getResponse();
+
+        assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+    }
 }
