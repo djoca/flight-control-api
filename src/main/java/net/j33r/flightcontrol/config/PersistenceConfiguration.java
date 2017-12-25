@@ -1,5 +1,7 @@
 package net.j33r.flightcontrol.config;
 
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
@@ -30,6 +32,10 @@ public class PersistenceConfiguration {
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         entityManagerFactoryBean.setPackagesToScan("net.j33r.flightcontrol.domain");
+
+        final Properties jpaProperties = new Properties();
+        jpaProperties.setProperty("hibernate.show_sql", "true");
+        entityManagerFactoryBean.setJpaProperties(jpaProperties);
 
         return entityManagerFactoryBean;
     }
