@@ -21,13 +21,13 @@ public class City {
      * The city identifier
      */
     @Id
-    @Column(name = "CITY_ID")
+    @Column(name = "CITY_ID", nullable = false)
     private final Long id;
 
     /**
      * The city name
      */
-    @Column(name = "CITY_NAME")
+    @Column(name = "CITY_NAME", nullable = false)
     private final String name;
 
     /**

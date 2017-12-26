@@ -23,26 +23,26 @@ public class Airport {
      * The airport identifier
      */
     @Id
-    @Column(name = "AIRPORT_ID")
+    @Column(name = "AIRPORT_ID", nullable = false)
     private final Long id;
 
     /**
      * The airport IATA code.
      */
-    @Column(name = "IATA_CODE")
+    @Column(name = "IATA_CODE", nullable = false)
     private final String iataCode;
 
     /**
      * The airport name
      */
-    @Column(name = "AIRPORT_NAME")
+    @Column(name = "AIRPORT_NAME", nullable = false)
     private final String name;
 
     /**
      * The airport city
      */
     @ManyToOne
-    @JoinColumn(name = "CITY_ID")
+    @JoinColumn(name = "CITY_ID", nullable = false)
     private final City city;
 
     /**

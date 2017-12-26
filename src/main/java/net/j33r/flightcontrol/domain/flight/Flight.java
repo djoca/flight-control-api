@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -28,53 +29,53 @@ public class Flight {
      * The flight identifier
      */
     @Id
-    @Column(name = "FLIGHT_ID")
+    @Column(name = "FLIGHT_ID", nullable = false)
     private final Long id;
 
     /**
      * The flight number
      */
-    @Column(name = "NUMBER")
+    @Column(name = "NUMBER", nullable = false)
     private final Short number;
 
     /**
      * The company name operating this flight
      */
-    @Column(name = "COMPANY_NAME")
+    @Column(name = "COMPANY_NAME", nullable = false)
     private final String companyName;
 
     /**
      * The flight aircraft
      */
     @ManyToOne
-    @JoinColumn(name = "AIRCRAFT_ID")
+    @JoinColumn(name = "AIRCRAFT_ID", nullable = false)
     private final Aircraft aircraft;
 
     /**
      * The flight pilot
      */
     @ManyToOne
-    @JoinColumn(name = "PILOT_ID")
+    @JoinColumn(name = "PILOT_ID", nullable = false)
     private final Pilot pilot;
 
     /**
      * The city of origin
      */
     @ManyToOne
-    @JoinColumn(name = "ORIGIN_AIRPORT_ID")
+    @JoinColumn(name = "ORIGIN_AIRPORT_ID", nullable = false)
     private final Airport origin;
 
     /**
      * The city of destination
      */
     @ManyToOne
-    @JoinColumn(name = "DESTINATION_AIRPORT_ID")
+    @JoinColumn(name = "DESTINATION_AIRPORT_ID", nullable = false)
     private final Airport destination;
 
     /**
      * The flight status
      */
-    @Column(name = "STATUS")
+    @Column(name = "STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
     private final FlightStatus status;
 
@@ -82,7 +83,8 @@ public class Flight {
      * The date and time of the scheduled departure time
      */
     @Embedded
-    @AttributeOverride(name = "dateTime", column = @Column(name = "SCHEDULED_DEPARTURE_TIME"))
+    @AttributeOverride(name = "dateTime", column = @Column(name = "SCHEDULED_DEPARTURE_TIME", nullable = false))
+    @Getter(AccessLevel.NONE)
     private final FlightDateTime scheduledDepartureTime;
 
     /**
@@ -90,6 +92,7 @@ public class Flight {
      */
     @Embedded
     @AttributeOverride(name = "dateTime", column = @Column(name = "DEPARTURE_TIME"))
+    @Getter(AccessLevel.NONE)
     private final FlightDateTime departureTime;
 
     /**
@@ -108,13 +111,13 @@ public class Flight {
     }
 
     /**
-     * Retrieves the scheduled departure time with the format "dd/MM/yyyy
-     * HH:mm".
+     * The departure time is the actual departure time if the aircraft did take
+     * off or the scheduled departure time if it is on the ground yet.
      *
-     * @return a formated string
+     * @return the actual departure time.
      */
-    public String getFormattedScheduledDepartureTime() {
-        return scheduledDepartureTime == null ? null : scheduledDepartureTime.getFormattedDateTime();
+    public FlightDateTime getDepartureTime() {
+        return departureTime == null ? scheduledDepartureTime : departureTime;
     }
 
     /**
@@ -123,7 +126,7 @@ public class Flight {
      * @return a formated string
      */
     public String getFormattedDepartureTime() {
-        return departureTime == null ? null : departureTime.getFormattedDateTime();
+        return getDepartureTime().getFormattedDateTime();
     }
 
     /**

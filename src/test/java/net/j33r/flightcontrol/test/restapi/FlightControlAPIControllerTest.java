@@ -65,7 +65,6 @@ public class FlightControlAPIControllerTest {
         assertEquals("SJK", jsonObject.getString("origin"));
         assertEquals("RIO", jsonObject.getString("destination"));
         assertEquals("FLYING", jsonObject.getString("flightStatus"));
-        assertEquals("21/12/2017 18:20", jsonObject.getString("scheduledDepartureTime"));
         assertEquals("21/12/2017 18:25", jsonObject.getString("departureTime"));
         assertTrue(jsonObject.isNull("arrivalTime"));
     }
@@ -123,7 +122,6 @@ public class FlightControlAPIControllerTest {
         assertEquals("Rio de Janeiro", destinationCity.getString("name"));
 
         assertEquals("FLYING", jsonObject.getString("flightStatus"));
-        assertEquals("21/12/2017 18:20", jsonObject.getString("scheduledDepartureTime"));
         assertEquals("21/12/2017 18:25", jsonObject.getString("departureTime"));
         assertTrue(jsonObject.isNull("arrivalTime"));
     }

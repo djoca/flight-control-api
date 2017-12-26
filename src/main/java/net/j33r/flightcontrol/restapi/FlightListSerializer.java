@@ -32,7 +32,6 @@ public class FlightListSerializer extends JsonSerializer<FlightListWrapper> {
             jsonGenerator.writeStringField("origin", flight.getOriginAirportIataCode());
             jsonGenerator.writeStringField("destination", flight.getDestinationAirportIataCode());
             jsonGenerator.writeStringField("flightStatus", flight.getStatusString());
-            jsonGenerator.writeStringField("scheduledDepartureTime", flight.getFormattedScheduledDepartureTime());
             jsonGenerator.writeStringField("departureTime", flight.getFormattedDepartureTime());
             jsonGenerator.writeStringField("arrivalTime", flight.getFormattedArrivalTime());
             jsonGenerator.writeEndObject();

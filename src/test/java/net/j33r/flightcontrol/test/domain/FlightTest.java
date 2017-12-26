@@ -17,6 +17,8 @@ public class FlightTest {
 
     private Flight flight;
 
+    private Flight scheduledFlight;
+
     @Before
     public void setup() {
         final City originCity = new City((long) 1, "São Paulo");
@@ -30,23 +32,30 @@ public class FlightTest {
         final Aircraft aircraft = new Aircraft((long) 1, "Airbus", "A330", "PP-FTS", (short) 230, 2830, 230);
 
         flight = new Flight((long) 1, (short) 4152, "TAM", aircraft, pilot, originAirport, destinationAirport,
-                FlightStatus.LANDED, new FlightDateTime(2017, 8, 28, 14, 13), new FlightDateTime(2016, 9, 13, 15, 20),
-                new FlightDateTime(2017, 11, 30, 20, 10));
+                FlightStatus.LANDED, new FlightDateTime(2017, 8, 28, 14, 13), new FlightDateTime(2017, 8, 28, 15, 20),
+                new FlightDateTime(2017, 8, 28, 20, 10));
+
+        scheduledFlight = new Flight((long) 1, (short) 4152, "TAM", aircraft, pilot, originAirport, destinationAirport,
+                FlightStatus.ON_TIME, new FlightDateTime(2017, 8, 28, 14, 13), null, null);
     }
 
     @Test
-    public void testFormattedScheduledDepartureTime() {
-        assertEquals("28/08/2017 14:13", flight.getFormattedScheduledDepartureTime());
+    public void testDepartureTime() {
+        final FlightDateTime departure = new FlightDateTime(2017, 8, 28, 15, 20);
+        assertEquals(departure, flight.getDepartureTime());
+
+        final FlightDateTime scheduledDeparture = new FlightDateTime(2017, 8, 28, 14, 13);
+        assertEquals(scheduledDeparture, scheduledFlight.getDepartureTime());
     }
 
     @Test
     public void testFormattedDepartureTime() {
-        assertEquals("13/09/2016 15:20", flight.getFormattedDepartureTime());
+        assertEquals("28/08/2017 15:20", flight.getFormattedDepartureTime());
     }
 
     @Test
     public void testFormattedArrivalTime() {
-        assertEquals("30/11/2017 20:10", flight.getFormattedArrivalTime());
+        assertEquals("28/08/2017 20:10", flight.getFormattedArrivalTime());
     }
 
     @Test

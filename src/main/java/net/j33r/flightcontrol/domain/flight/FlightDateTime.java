@@ -6,12 +6,16 @@ import java.time.format.DateTimeFormatter;
 import javax.persistence.Embeddable;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * The class {@link FlightDateTime} represents the date and time of a flight.
  */
 @AllArgsConstructor
 @Embeddable
+@EqualsAndHashCode
+@ToString
 public class FlightDateTime {
 
     private final LocalDateTime dateTime;

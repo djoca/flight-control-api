@@ -61,7 +61,6 @@ public class FlightSerializer extends JsonSerializer<FlightWrapper> {
         jsonGenerator.writeEndObject();
 
         jsonGenerator.writeStringField("flightStatus", flight.getStatusString());
-        jsonGenerator.writeStringField("scheduledDepartureTime", flight.getFormattedScheduledDepartureTime());
         jsonGenerator.writeStringField("departureTime", flight.getFormattedDepartureTime());
         jsonGenerator.writeStringField("arrivalTime", flight.getFormattedArrivalTime());
         jsonGenerator.writeEndObject();

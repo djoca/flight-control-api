@@ -21,13 +21,13 @@ public class Pilot {
      * The pilot identifier
      */
     @Id
-    @Column(name = "PILOT_ID")
+    @Column(name = "PILOT_ID", nullable = false)
     private final Long id;
 
     /**
      * The pilot name
      */
-    @Column(name = "PILOT_NAME")
+    @Column(name = "PILOT_NAME", nullable = false)
     private final String name;
 
     /**

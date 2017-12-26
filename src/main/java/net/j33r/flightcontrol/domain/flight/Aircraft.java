@@ -21,43 +21,43 @@ public class Aircraft {
      * The aircraft identifier
      */
     @Id
-    @Column(name = "AIRCRAFT_ID")
+    @Column(name = "AIRCRAFT_ID", nullable = false)
     private final Long id;
 
     /**
      * The aircraft manufacturer
      */
-    @Column(name = "AIRCRAFT_MANUFACTURER")
+    @Column(name = "AIRCRAFT_MANUFACTURER", nullable = false)
     private final String manufacturer;
 
     /**
      * The aircraft model
      */
-    @Column(name = "AIRCRAFT_MODEL")
+    @Column(name = "AIRCRAFT_MODEL", nullable = false)
     private final String model;
 
     /**
      * The aircraft registry
      */
-    @Column(name = "AIRCRAFT_REGISTRY")
+    @Column(name = "AIRCRAFT_REGISTRY", nullable = false)
     private final String registry;
 
     /**
      * The aircraft number of seats
      */
-    @Column(name = "NUMBER_SEATS")
+    @Column(name = "NUMBER_SEATS", nullable = false)
     private final Short numberSeats;
 
     /**
      * The aircraft number of flight hours
      */
-    @Column(name = "FLIGHT_HOURS")
+    @Column(name = "FLIGHT_HOURS", nullable = false)
     private final Integer flightHours;
 
     /**
      * The aircraft number of flight cycles
      */
-    @Column(name = "FLIGHT_CYCLES")
+    @Column(name = "FLIGHT_CYCLES", nullable = false)
     private final Integer flightCycles;
 
     /**
