@@ -10,3 +10,9 @@ This is a simple Flight Control Rest API made with Spring Boot.
 1. Make sure you have Git, Java 1.8 and Maven 3.5 installed.
 2. Clone this repository locally.
 3. Execute `mvn spring-boot:run` to start the server.
+
+## TODO
+
+- Create City, Pilot and Aircraft domains.
+- Implement create, update and delete services.
+- Apply CQRS pattern.
