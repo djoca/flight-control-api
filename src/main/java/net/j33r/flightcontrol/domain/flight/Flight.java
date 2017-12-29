@@ -49,6 +49,7 @@ public class Flight {
      */
     @ManyToOne
     @JoinColumn(name = "AIRCRAFT_ID", nullable = false)
+    @Getter(AccessLevel.PACKAGE)
     private final Aircraft aircraft;
 
     /**
@@ -56,6 +57,7 @@ public class Flight {
      */
     @ManyToOne
     @JoinColumn(name = "PILOT_ID", nullable = false)
+    @Getter(AccessLevel.PACKAGE)
     private final Pilot pilot;
 
     /**
@@ -63,6 +65,7 @@ public class Flight {
      */
     @ManyToOne
     @JoinColumn(name = "ORIGIN_AIRPORT_ID", nullable = false)
+    @Getter(AccessLevel.PACKAGE)
     private final Airport origin;
 
     /**
@@ -70,6 +73,7 @@ public class Flight {
      */
     @ManyToOne
     @JoinColumn(name = "DESTINATION_AIRPORT_ID", nullable = false)
+    @Getter(AccessLevel.PACKAGE)
     private final Airport destination;
 
     /**
@@ -77,6 +81,7 @@ public class Flight {
      */
     @Column(name = "STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
+    @Getter(AccessLevel.PACKAGE)
     private final FlightStatus status;
 
     /**
@@ -100,6 +105,7 @@ public class Flight {
      */
     @Embedded
     @AttributeOverride(name = "dateTime", column = @Column(name = "ARRIVAL_TIME"))
+    @Getter(AccessLevel.PACKAGE)
     private final FlightDateTime arrivalTime;
 
     /**
@@ -111,8 +117,8 @@ public class Flight {
     }
 
     /**
-     * The departure time is the actual departure time if the aircraft did take
-     * off or the scheduled departure time if it is on the ground yet.
+     * The departure time is the actual departure time if the aircraft did take off
+     * or the scheduled departure time if it is on the ground yet.
      *
      * @return the actual departure time.
      */
