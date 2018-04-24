@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,9 +16,9 @@ import lombok.Getter;
  */
 @Entity
 @Table(name = "AIRPORT")
-@Getter
+@Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public class Airport {
+class Airport {
 
     /**
      * The airport identifier
@@ -58,7 +59,7 @@ public class Airport {
      *
      * @return the city identifier
      */
-    public Long getCityId() {
+    Long getCityId() {
         return city.getId();
     }
 
@@ -67,7 +68,7 @@ public class Airport {
      *
      * @return the city identifier
      */
-    public String getCityName() {
+    String getCityName() {
         return city.getName();
     }
 

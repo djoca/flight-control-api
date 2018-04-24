@@ -16,11 +16,11 @@ import lombok.ToString;
 @Embeddable
 @EqualsAndHashCode
 @ToString
-public class FlightDateTime {
+class FlightDateTime {
 
     private final LocalDateTime dateTime;
 
-    public FlightDateTime(final int year, final int month, final int day, final int hour, final int minutes) {
+    FlightDateTime(final int year, final int month, final int day, final int hour, final int minutes) {
         dateTime = LocalDateTime.of(year, month, day, hour, minutes);
     }
 
@@ -37,7 +37,7 @@ public class FlightDateTime {
      *
      * @return a formated String
      */
-    public String getFormattedDateTime() {
+    String getFormattedDateTime() {
         return DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(dateTime);
     }
 

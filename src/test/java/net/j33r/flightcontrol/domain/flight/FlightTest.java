@@ -1,4 +1,4 @@
-package net.j33r.flightcontrol.test.domain;
+package net.j33r.flightcontrol.domain.flight;
 
 import static org.junit.Assert.assertEquals;
 

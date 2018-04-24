@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,9 +14,9 @@ import lombok.Getter;
  */
 @Entity
 @Table(name = "PILOT")
-@Getter
+@Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public class Pilot {
+class Pilot {
 
     /**
      * The pilot identifier

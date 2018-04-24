@@ -1,4 +1,4 @@
-package net.j33r.flightcontrol.test.restapi;
+package net.j33r.flightcontrol.restapi;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 
-import net.j33r.flightcontrol.test.config.SpringContextTestConfiguration;
+import net.j33r.flightcontrol.config.SpringContextTestConfiguration;
 
 /**
  * Flight Control API Integration tests

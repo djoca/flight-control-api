@@ -1,4 +1,4 @@
-package net.j33r.flightcontrol.test.config;
+package net.j33r.flightcontrol.config;
 
 import javax.sql.DataSource;
 
