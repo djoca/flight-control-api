@@ -6,6 +6,8 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,6 +31,7 @@ public class Flight {
      * The flight identifier
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "FLIGHT_ID", nullable = false)
     private final Long id;
 
@@ -82,7 +85,7 @@ public class Flight {
     @Column(name = "STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
     @Getter(AccessLevel.PACKAGE)
-    private final FlightStatus status;
+    private FlightStatus status;
 
     /**
      * The date and time of the scheduled departure time
@@ -98,7 +101,7 @@ public class Flight {
     @Embedded
     @AttributeOverride(name = "dateTime", column = @Column(name = "DEPARTURE_TIME"))
     @Getter(AccessLevel.NONE)
-    private final FlightDateTime departureTime;
+    private FlightDateTime departureTime;
 
     /**
      * The date and time of actual arrival time
@@ -106,7 +109,7 @@ public class Flight {
     @Embedded
     @AttributeOverride(name = "dateTime", column = @Column(name = "ARRIVAL_TIME"))
     @Getter(AccessLevel.PACKAGE)
-    private final FlightDateTime arrivalTime;
+    private FlightDateTime arrivalTime;
 
     /**
      * Default constructor required by JPA
@@ -117,8 +120,29 @@ public class Flight {
     }
 
     /**
-     * The departure time is the actual departure time if the aircraft did take off
-     * or the scheduled departure time if it is on the ground yet.
+     * Creates a new {@link Flight} in the initial state.
+     *
+     * The initial flight state only has a scheduled departure time and has a
+     * {@link FlightStatus.ON_TIME} status.
+     */
+    Flight(final Short number, final String companyName, final Aircraft aircraft, final Pilot pilot,
+            final Airport origin, final Airport destination, final FlightDateTime scheduledDepartureTime) {
+        id = null;
+        this.number = number;
+        this.companyName = companyName;
+        this.aircraft = aircraft;
+        this.pilot = pilot;
+        this.origin = origin;
+        this.destination = destination;
+        this.scheduledDepartureTime = scheduledDepartureTime;
+        this.departureTime = null;
+        this.arrivalTime = null;
+        this.status = FlightStatus.ON_TIME;
+    }
+
+    /**
+     * The departure time is the actual departure time if the aircraft did take
+     * off or the scheduled departure time if it is on the ground yet.
      *
      * @return the actual departure time.
      */
@@ -295,6 +319,29 @@ public class Flight {
      */
     public String getPilotName() {
         return pilot.getName();
+    }
+
+    /**
+     * Change the state of this flight to {@link FlightStatus.FLYING}
+     */
+    void takeOff() {
+        departureTime = FlightDateTime.now();
+        status = FlightStatus.FLYING;
+    }
+
+    /**
+     * Change the state of this flight to {@link FlightStatus.LANDED}
+     */
+    void land() {
+        arrivalTime = FlightDateTime.now();
+        status = FlightStatus.LANDED;
+    }
+
+    /**
+     * Change the state of this flight to {@link FlightStatus.DELAYED}
+     */
+    void delay() {
+        status = FlightStatus.DELAYED;
     }
 
 }

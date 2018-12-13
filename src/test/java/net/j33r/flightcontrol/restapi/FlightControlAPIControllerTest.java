@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
+import javax.sql.DataSource;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -12,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -37,8 +40,15 @@ public class FlightControlAPIControllerTest {
     @Autowired
     private WebApplicationContext context;
 
+    @Autowired
+    private DatabasePopulator databasePopulator;
+
+    @Autowired
+    private DataSource dataSource;
+
     @Before
     public void setup() throws Exception {
+        databasePopulator.populate(dataSource.getConnection());
         mockMvc = webAppContextSetup(context).build();
     }
 
@@ -56,7 +66,7 @@ public class FlightControlAPIControllerTest {
         final JSONArray jsonArray = new JSONArray(jsonResponse);
 
         assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertTrue(jsonArray.length() == 2);
+        assertTrue(jsonArray.length() == 3);
 
         final JSONObject jsonObject = jsonArray.getJSONObject(0);
         assertEquals(1, jsonObject.getInt("id"));

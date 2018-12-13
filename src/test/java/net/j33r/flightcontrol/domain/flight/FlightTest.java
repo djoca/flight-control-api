@@ -5,14 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.j33r.flightcontrol.domain.flight.Aircraft;
-import net.j33r.flightcontrol.domain.flight.Airport;
-import net.j33r.flightcontrol.domain.flight.City;
-import net.j33r.flightcontrol.domain.flight.Flight;
-import net.j33r.flightcontrol.domain.flight.FlightDateTime;
-import net.j33r.flightcontrol.domain.flight.FlightStatus;
-import net.j33r.flightcontrol.domain.flight.Pilot;
-
 public class FlightTest {
 
     private Flight flight;

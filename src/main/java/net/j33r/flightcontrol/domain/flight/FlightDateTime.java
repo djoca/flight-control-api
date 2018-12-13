@@ -18,6 +18,8 @@ import lombok.ToString;
 @ToString
 class FlightDateTime {
 
+    private static final String DATE_PATTERN = "dd/MM/yyyy HH:mm";
+
     private final LocalDateTime dateTime;
 
     FlightDateTime(final int year, final int month, final int day, final int hour, final int minutes) {
@@ -38,7 +40,28 @@ class FlightDateTime {
      * @return a formated String
      */
     String getFormattedDateTime() {
-        return DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(dateTime);
+        return DateTimeFormatter.ofPattern(DATE_PATTERN).format(dateTime);
+    }
+
+    /**
+     * Returns a FlightDateTime representing the present instant.
+     *
+     * @return the present FlightDateTime
+     */
+    static FlightDateTime now() {
+        return new FlightDateTime(LocalDateTime.now());
+    }
+
+    /**
+     * Parses a String into a {@link FlightDateTime} object.
+     *
+     * @param date
+     *            a String with the "dd/MM/yyyy HH:mm" pattern.
+     * @return a {@link FlightDateTime} object
+     */
+    static FlightDateTime parse(final String date) {
+        final LocalDateTime localDateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern(DATE_PATTERN));
+        return new FlightDateTime(localDateTime);
     }
 
 }

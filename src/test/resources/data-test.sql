@@ -16,3 +16,4 @@ insert into pilot values (2, 'Bob Bobblehead')
 
 insert into flight values (1, '123', 'TAM', 1, 1, 1, 4, 'FLYING', '2017-12-21 18:20:00', '2017-12-21 18:25:00', null);
 insert into flight values (2, '300', 'Gol', 2, 2, 2, 5, 'LANDED', '2017-12-21 14:50:00', '2017-12-21 15:00:00', '2017-12-21 17:20:00');
+insert into flight values (3, '500', 'Azul', 2, 1, 5, 1, 'ON_TIME', '2018-12-12 16:00:00', null, null);

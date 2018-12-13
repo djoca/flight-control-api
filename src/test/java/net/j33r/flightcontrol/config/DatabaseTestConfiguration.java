@@ -43,8 +43,9 @@ public class DatabaseTestConfiguration {
      * @return a {@link DatabasePopulator}
      */
     @Bean
-    public DatabasePopulator databasePopulator(DataSource dataSource) {
+    public DatabasePopulator databasePopulator(final DataSource dataSource) {
         final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.addScript(new ClassPathResource("drop-test.sql"));
         populator.addScript(new ClassPathResource("schema-test.sql"));
         populator.addScript(new ClassPathResource("data-test.sql"));
 

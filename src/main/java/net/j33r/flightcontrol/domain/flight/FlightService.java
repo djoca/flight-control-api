@@ -44,4 +44,78 @@ public class FlightService {
         return flight;
     }
 
+    /**
+     * Creates a new flight
+     *
+     * @param number
+     *            the number of the flight
+     * @param companyName
+     *            the company name operation the flight
+     * @param aircraft
+     *            the {@link Aircraft}
+     * @param pilot
+     *            the {@link Pilot}
+     * @param origin
+     *            the origin {@link Airport}
+     * @param destination
+     *            the origin {@link Airport}
+     * @param scheduledTime
+     *            the scheduled time
+     * @return {@link Flight}
+     */
+    public Flight createFlight(final Short number, final String companyName, final Aircraft aircraft, final Pilot pilot,
+            final Airport origin, final Airport destination, final FlightDateTime scheduledTime) {
+        final Flight flight = new Flight(number, companyName, aircraft, pilot, origin, destination, scheduledTime);
+        repository.save(flight);
+        return flight;
+    }
+
+    /**
+     * Sets a flight as FLYING.
+     *
+     * @param id
+     *            the flight id
+     * @throws FlightNotFoundException
+     *             if the id is not found
+     * @return {@link Flight}
+     */
+    public Flight takeOffFlight(final Long id) throws FlightException {
+        final Flight flight = retrieveFlight(id);
+        flight.takeOff();
+        repository.save(flight);
+        return flight;
+    }
+
+    /**
+     * Sets a flight as LANDED.
+     *
+     * @param id
+     *            the flight id
+     * @throws FlightNotFoundException
+     *             if the id is not found
+     * @return {@link Flight}
+     */
+    public Flight landFlight(final Long id) throws FlightException {
+        final Flight flight = retrieveFlight(id);
+        flight.land();
+        repository.save(flight);
+        return flight;
+    }
+
+    /**
+     * Sets a flight as DELAYED.
+     *
+     * @param id
+     *            the flight id
+     * @throws FlightNotFoundException
+     *             if the id is not found
+     * @return {@link Flight}
+     */
+    public Flight delayFlight(final Long id) throws FlightException {
+        final Flight flight = retrieveFlight(id);
+        flight.delay();
+        repository.save(flight);
+        return flight;
+    }
+
 }
