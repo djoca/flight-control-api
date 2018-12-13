@@ -1,11 +1,10 @@
-package net.j33r.flightcontrol.domain.flight;
+package net.j33r.flightcontrol.domain.pilot;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,9 +13,9 @@ import lombok.Getter;
  */
 @Entity
 @Table(name = "PILOT")
-@Getter(AccessLevel.PACKAGE)
+@Getter
 @AllArgsConstructor
-class Pilot {
+public class Pilot {
 
     /**
      * The pilot identifier

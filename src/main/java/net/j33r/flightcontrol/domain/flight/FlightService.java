@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import net.j33r.flightcontrol.domain.aircraft.Aircraft;
+import net.j33r.flightcontrol.domain.airport.Airport;
+import net.j33r.flightcontrol.domain.pilot.Pilot;
 
 /**
  * The class {@link FlightService} is the service layer for the Flight domain.

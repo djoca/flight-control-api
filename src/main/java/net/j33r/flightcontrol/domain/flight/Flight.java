@@ -16,6 +16,9 @@ import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.j33r.flightcontrol.domain.aircraft.Aircraft;
+import net.j33r.flightcontrol.domain.airport.Airport;
+import net.j33r.flightcontrol.domain.pilot.Pilot;
 
 /**
  * This class represents a Flight. This is the aggregate root of the Flight
@@ -141,8 +144,8 @@ public class Flight {
     }
 
     /**
-     * The departure time is the actual departure time if the aircraft did take
-     * off or the scheduled departure time if it is on the ground yet.
+     * The departure time is the actual departure time if the aircraft did take off
+     * or the scheduled departure time if it is on the ground yet.
      *
      * @return the actual departure time.
      */

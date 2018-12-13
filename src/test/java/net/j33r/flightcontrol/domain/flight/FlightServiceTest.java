@@ -17,6 +17,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import net.j33r.flightcontrol.config.SpringContextTestConfiguration;
+import net.j33r.flightcontrol.domain.aircraft.Aircraft;
+import net.j33r.flightcontrol.domain.airport.Airport;
+import net.j33r.flightcontrol.domain.airport.City;
+import net.j33r.flightcontrol.domain.pilot.Pilot;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { SpringContextTestConfiguration.class })

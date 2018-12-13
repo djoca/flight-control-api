@@ -5,6 +5,11 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.j33r.flightcontrol.domain.aircraft.Aircraft;
+import net.j33r.flightcontrol.domain.airport.Airport;
+import net.j33r.flightcontrol.domain.airport.City;
+import net.j33r.flightcontrol.domain.pilot.Pilot;
+
 public class FlightTest {
 
     private Flight flight;

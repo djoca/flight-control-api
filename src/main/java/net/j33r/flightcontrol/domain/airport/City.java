@@ -1,4 +1,4 @@
-package net.j33r.flightcontrol.domain.flight;
+package net.j33r.flightcontrol.domain.airport;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +16,7 @@ import lombok.Getter;
 @Table(name = "CITY")
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-class City {
+public class City {
 
     /**
      * The city identifier

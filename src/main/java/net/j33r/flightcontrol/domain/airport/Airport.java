@@ -1,4 +1,4 @@
-package net.j33r.flightcontrol.domain.flight;
+package net.j33r.flightcontrol.domain.airport;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +16,9 @@ import lombok.Getter;
  */
 @Entity
 @Table(name = "AIRPORT")
-@Getter(AccessLevel.PACKAGE)
+@Getter
 @AllArgsConstructor
-class Airport {
+public class Airport {
 
     /**
      * The airport identifier
@@ -42,6 +42,7 @@ class Airport {
     /**
      * The airport city
      */
+    @Getter(AccessLevel.PACKAGE)
     @ManyToOne
     @JoinColumn(name = "CITY_ID", nullable = false)
     private final City city;
@@ -59,7 +60,7 @@ class Airport {
      *
      * @return the city identifier
      */
-    Long getCityId() {
+    public Long getCityId() {
         return city.getId();
     }
 
@@ -68,7 +69,7 @@ class Airport {
      *
      * @return the city identifier
      */
-    String getCityName() {
+    public String getCityName() {
         return city.getName();
     }
 

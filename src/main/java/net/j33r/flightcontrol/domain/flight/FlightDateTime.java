@@ -16,7 +16,7 @@ import lombok.ToString;
 @Embeddable
 @EqualsAndHashCode
 @ToString
-class FlightDateTime {
+public class FlightDateTime {
 
     private static final String DATE_PATTERN = "dd/MM/yyyy HH:mm";
 
@@ -59,7 +59,7 @@ class FlightDateTime {
      *            a String with the "dd/MM/yyyy HH:mm" pattern.
      * @return a {@link FlightDateTime} object
      */
-    static FlightDateTime parse(final String date) {
+    public static FlightDateTime parse(final String date) {
         final LocalDateTime localDateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern(DATE_PATTERN));
         return new FlightDateTime(localDateTime);
     }
