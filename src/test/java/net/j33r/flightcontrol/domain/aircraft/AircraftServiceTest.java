@@ -1,6 +1,7 @@
 package net.j33r.flightcontrol.domain.aircraft;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,4 +32,15 @@ public class AircraftServiceTest {
         assertEquals(new Integer(5986), aircraft.getFlightHours());
         assertEquals(new Integer(3445), aircraft.getFlightCycles());
     }
+
+    @Test
+    public void retrieveNonExistentAircraft() throws Exception {
+        try {
+            aircraftService.retrieveAircraft(43L);
+            fail("Should throw AircraftException");
+        } catch (final AircraftException e) {
+            assertEquals("Aircraft 43 not found", e.getMessage());
+        }
+    }
+
 }

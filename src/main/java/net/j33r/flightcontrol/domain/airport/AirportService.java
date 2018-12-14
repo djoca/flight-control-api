@@ -20,11 +20,11 @@ public class AirportService {
      *            the {@link Airport} id.
      * @return an {@Link Airport} object
      */
-    public Airport retrieveAirport(Long id) throws AirportException {
+    public Airport retrieveAirport(final Long id) throws AirportException {
         final Airport airport = repository.findOne(id);
 
         if (airport == null) {
-            throw new AirportException("Airport not found");
+            throw new AirportException(String.format("Airport %s not found", id));
         }
 
         return airport;

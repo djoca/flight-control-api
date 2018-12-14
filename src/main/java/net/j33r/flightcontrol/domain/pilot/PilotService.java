@@ -20,11 +20,11 @@ public class PilotService {
      *            the {@link Pilot} id.
      * @return an {@Link Pilot} object
      */
-    public Pilot retrievePilot(Long id) throws PilotException {
+    public Pilot retrievePilot(final Long id) throws PilotException {
         final Pilot pilot = repository.findOne(id);
 
         if (pilot == null) {
-            throw new PilotException("Pilot not found");
+            throw new PilotException(String.format("Pilot %s not found", id));
         }
 
         return pilot;

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import javax.sql.DataSource;
 
@@ -75,6 +76,16 @@ public class FlightServiceTest {
         final int currentNumberOfFlights = flightService.retrieveFlights().size();
 
         assertEquals(numberOfFlights + 1, currentNumberOfFlights);
+    }
+
+    @Test
+    public void retrieveNonExistentFlight() throws Exception {
+        try {
+            flightService.retrieveFlight(152L);
+            fail("Should throw FlightNotFoundException");
+        } catch (final FlightNotFoundException e) {
+            assertEquals("Flight 152 not found", e.getMessage());
+        }
     }
 
     @Test

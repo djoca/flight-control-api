@@ -74,8 +74,9 @@ public class FlightControlApplicationService {
      *            the scheduled date and time
      * @return a {@link Flight} object
      */
-    public Flight createFlight(Short number, String companyName, Long aircraftId, Long pilotId, Long originAirportId,
-            Long destinationAirportId, String dateTime) throws FlightControlException {
+    public Flight createFlight(final Short number, final String companyName, final Long aircraftId, final Long pilotId,
+            final Long originAirportId, final Long destinationAirportId, final String dateTime)
+            throws FlightControlException {
 
         final Aircraft aircraft = aircraftService.retrieveAircraft(aircraftId);
         final Pilot pilot = pilotService.retrievePilot(pilotId);

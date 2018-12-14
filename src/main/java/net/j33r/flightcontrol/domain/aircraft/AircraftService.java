@@ -21,11 +21,11 @@ public class AircraftService {
      *            the {@link Aircraft} id.
      * @return an {@Link Aircraft} object
      */
-    public Aircraft retrieveAircraft(Long id) throws AircraftException {
+    public Aircraft retrieveAircraft(final Long id) throws AircraftException {
         final Aircraft aircraft = repository.findOne(id);
 
         if (aircraft == null) {
-            throw new AircraftException("Aircraft not found");
+            throw new AircraftException(String.format("Aircraft %s not found", id));
         }
 
         return aircraft;

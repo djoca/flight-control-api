@@ -1,6 +1,7 @@
 package net.j33r.flightcontrol.domain.pilot;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,4 +28,13 @@ public class PilotServiceTest {
         assertEquals("Jack Black", pilot.getName());
     }
 
+    @Test
+    public void retrieveNonExistentPilot() throws Exception {
+        try {
+            pilotService.retrievePilot(13L);
+            fail("Should throw PilotException");
+        } catch (final PilotException e) {
+            assertEquals("Pilot 13 not found", e.getMessage());
+        }
+    }
 }

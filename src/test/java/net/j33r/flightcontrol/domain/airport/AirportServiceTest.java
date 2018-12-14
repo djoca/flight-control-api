@@ -1,6 +1,7 @@
 package net.j33r.flightcontrol.domain.airport;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +28,16 @@ public class AirportServiceTest {
         assertEquals("SJK", airport.getIataCode());
         assertEquals("Aeroporto de São José dos Campos", airport.getName());
         assertEquals("São José dos Campos", airport.getCityName());
+    }
+
+    @Test
+    public void retrieveNonExistentAirport() throws Exception {
+        try {
+            airportService.retrieveAirport(10L);
+            fail("Should throw AirportException");
+        } catch (final AirportException e) {
+            assertEquals("Airport 10 not found", e.getMessage());
+        }
     }
 
 }
