@@ -1,8 +1,8 @@
 package net.j33r.flightcontrol.restapi;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.j33r.flightcontrol.domain.flight.Flight;
 
@@ -11,9 +11,38 @@ import net.j33r.flightcontrol.domain.flight.Flight;
  * separate the domain class and its serialization responsibilities.
  */
 @Getter
-@AllArgsConstructor
 @JsonSerialize(using = FlightSerializer.class)
+@JsonDeserialize(using = FlightDeserializer.class)
 public class FlightWrapper {
 
-    private final Flight flight;
+    private Flight flight;
+
+    private Short number;
+
+    private String companyName;
+
+    private Long aircraftId;
+
+    private Long pilotId;
+
+    private Long originId;
+
+    private Long destinationId;
+
+    private String departureTime;
+
+    public FlightWrapper(final Flight flight) {
+        this.flight = flight;
+    }
+
+    public FlightWrapper(final Short number, final String companyName, final Long aircraftId, final Long pilotId,
+            final Long originId, final Long destinationId, final String departureTime) {
+        this.number = number;
+        this.companyName = companyName;
+        this.aircraftId = aircraftId;
+        this.pilotId = pilotId;
+        this.originId = originId;
+        this.destinationId = destinationId;
+        this.departureTime = departureTime;
+    }
 }

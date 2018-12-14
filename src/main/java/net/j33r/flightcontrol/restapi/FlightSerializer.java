@@ -3,7 +3,6 @@ package net.j33r.flightcontrol.restapi;
 import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
@@ -20,7 +19,8 @@ public class FlightSerializer extends JsonSerializer<FlightWrapper> {
      */
     @Override
     public void serialize(final FlightWrapper flightWrapper, final JsonGenerator jsonGenerator,
-            final SerializerProvider provider) throws IOException, JsonProcessingException {
+            final SerializerProvider provider) throws IOException {
+
         final Flight flight = flightWrapper.getFlight();
 
         jsonGenerator.writeStartObject();

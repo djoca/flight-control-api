@@ -75,14 +75,14 @@ public class FlightControlApplicationService {
      * @return a {@link Flight} object
      */
     public Flight createFlight(final Short number, final String companyName, final Long aircraftId, final Long pilotId,
-            final Long originAirportId, final Long destinationAirportId, final String dateTime)
+            final Long originAirportId, final Long destinationAirportId, final String departureTime)
             throws FlightControlException {
 
         final Aircraft aircraft = aircraftService.retrieveAircraft(aircraftId);
         final Pilot pilot = pilotService.retrievePilot(pilotId);
         final Airport origin = airportService.retrieveAirport(originAirportId);
         final Airport destination = airportService.retrieveAirport(destinationAirportId);
-        final FlightDateTime scheduledTime = FlightDateTime.parse(dateTime);
+        final FlightDateTime scheduledTime = FlightDateTime.parse(departureTime);
 
         return flightService.createFlight(number, companyName, aircraft, pilot, origin, destination, scheduledTime);
     }

@@ -3,6 +3,7 @@ package net.j33r.flightcontrol.restapi;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import javax.sql.DataSource;
@@ -14,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
@@ -147,5 +149,50 @@ public class FlightControlAPIControllerTest {
         final MockHttpServletResponse response = action.andReturn().getResponse();
 
         assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+    }
+
+    /**
+     * Tests the creation of a flight
+     *
+     * @throws Exception
+     */
+    @Test
+    public void flightCreation() throws Exception {
+        final MockHttpServletResponse response = requestFlightCreation((short) 123, "TAM", 1L, 1L, 2L, 3L,
+                "21/12/2017 18:25");
+
+        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+    }
+
+    /**
+     * Request a flight creation
+     *
+     * @param flightNumber
+     *            the flight number
+     * @param companyName
+     *            the company name
+     * @param aircraftId
+     *            the aircraft id
+     * @param pilotId
+     *            the pilot id
+     * @param originId
+     *            the origin id
+     * @param destinationId
+     *            the destination id
+     * @param departureTime
+     *            the scheduled departure time
+     * @return a JSON string
+     */
+    private MockHttpServletResponse requestFlightCreation(final Short flightNumber, final String companyName,
+            final Long aircraftId, final Long pilotId, final Long originId, final Long destinationId,
+            final String departureTime) throws Exception {
+        final String baseJson = "{ \"flightNumber\": %s, \"companyName\": \"%s\", \"aircraft\": { \"id\": %s }, \"pilot\": { \"id\": %s }, \"origin\": { \"id\": %s }, \"destination\": { \"id\": %s }, \"departureTime\": \"%s\" }";
+        final String json = String.format(baseJson, flightNumber, companyName, aircraftId, pilotId, originId,
+                destinationId, departureTime);
+
+        final ResultActions action = mockMvc
+                .perform(post("/flights").content(json).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+
+        return action.andReturn().getResponse();
     }
 }
