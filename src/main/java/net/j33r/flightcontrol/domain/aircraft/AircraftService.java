@@ -1,5 +1,7 @@
 package net.j33r.flightcontrol.domain.aircraft;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -13,6 +15,15 @@ import lombok.AllArgsConstructor;
 public class AircraftService {
 
     private final AircraftRepository repository;
+
+    /**
+     * Retrieve a {@link List} of all available aircrafts.
+     *
+     * @return a {@link List} of {@link Aircraft} objects
+     */
+    public List<Aircraft> retrieveAircrafts() {
+        return repository.findAll();
+    }
 
     /**
      * Retrieve an {@link Aircraft}
@@ -30,4 +41,5 @@ public class AircraftService {
 
         return aircraft;
     }
+
 }

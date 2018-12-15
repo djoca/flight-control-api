@@ -1,5 +1,6 @@
 package net.j33r.flightcontrol.domain;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -85,5 +86,14 @@ public class FlightControlApplicationService {
         final FlightDateTime scheduledTime = FlightDateTime.parse(departureTime);
 
         return flightService.createFlight(number, companyName, aircraft, pilot, origin, destination, scheduledTime);
+    }
+
+    /**
+     * Retrieve a {@link List} of {@link Aircraft} objects.
+     *
+     * @return a List of {@link Aircraft} objects
+     */
+    public List<Aircraft> retrieveAircrafts() {
+        return Collections.unmodifiableList(aircraftService.retrieveAircrafts());
     }
 }
