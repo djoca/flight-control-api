@@ -21,7 +21,7 @@ public class AirportService {
      * @return a {@link List} of {@link Airport} objects
      */
     public List<Airport> retrieveAirports() {
-        return repository.findAll();
+        return repository.findAllAirports();
     }
 
     /**
@@ -32,7 +32,7 @@ public class AirportService {
      * @return an {@Link Airport} object
      */
     public Airport retrieveAirport(final Long id) throws AirportException {
-        final Airport airport = repository.findOne(id);
+        final Airport airport = repository.findAirport(id);
 
         if (airport == null) {
             throw new AirportException(String.format("Airport %s not found", id));
