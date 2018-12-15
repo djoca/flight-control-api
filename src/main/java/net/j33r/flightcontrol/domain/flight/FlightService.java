@@ -38,7 +38,7 @@ public class FlightService {
      *             if the requested id is not found.
      */
     public Flight retrieveFlight(final Long id) throws FlightException {
-        final Flight flight = repository.findOne(id);
+        final Flight flight = repository.findFlight(id);
 
         if (flight == null) {
             throw new FlightNotFoundException(id);
