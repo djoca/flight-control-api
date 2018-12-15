@@ -96,4 +96,14 @@ public class FlightControlApplicationService {
     public List<Aircraft> retrieveAircrafts() {
         return Collections.unmodifiableList(aircraftService.retrieveAircrafts());
     }
+
+    /**
+     * Retrieve a {@link List} of {@link Airport} objects.
+     *
+     * @return a List of {@link Airport} objects
+     */
+    public List<Airport> retrieveAirports() {
+        return Collections.unmodifiableList(airportService.retrieveAirports());
+    }
+
 }
