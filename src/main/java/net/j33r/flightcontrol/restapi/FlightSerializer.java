@@ -12,7 +12,7 @@ import net.j33r.flightcontrol.domain.flight.Flight;
  * The class {@link FlightSerializer} is responsible for serialize a
  * {@link FlightWrapper} object into Json format.
  */
-public class FlightSerializer extends JsonSerializer<FlightWrapper> {
+class FlightSerializer extends JsonSerializer<FlightWrapper> {
 
     /**
      * {@inheritDoc}
