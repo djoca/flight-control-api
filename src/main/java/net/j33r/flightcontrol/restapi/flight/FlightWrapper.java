@@ -1,4 +1,4 @@
-package net.j33r.flightcontrol.restapi;
+package net.j33r.flightcontrol.restapi.flight;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

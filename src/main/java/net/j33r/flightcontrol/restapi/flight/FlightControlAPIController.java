@@ -1,4 +1,4 @@
-package net.j33r.flightcontrol.restapi;
+package net.j33r.flightcontrol.restapi.flight;
 
 import java.util.List;
 

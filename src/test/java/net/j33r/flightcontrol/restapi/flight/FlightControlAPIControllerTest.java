@@ -1,4 +1,4 @@
-package net.j33r.flightcontrol.restapi;
+package net.j33r.flightcontrol.restapi.flight;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
