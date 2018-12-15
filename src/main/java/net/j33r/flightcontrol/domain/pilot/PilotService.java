@@ -1,5 +1,8 @@
 package net.j33r.flightcontrol.domain.pilot;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -12,6 +15,15 @@ import lombok.AllArgsConstructor;
 public class PilotService {
 
     private final PilotRepository repository;
+
+    /**
+     * Retrieve a {@link List} of all available pilots.
+     *
+     * @return a {@link List} of {@link Pilot} objects
+     */
+    public List<Pilot> retrievePilots() {
+        return Collections.unmodifiableList(repository.findAll());
+    }
 
     /**
      * Retrieve an {@link Pilot}

@@ -1,5 +1,6 @@
 package net.j33r.flightcontrol.domain.airport;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class AirportService {
      * @return a {@link List} of {@link Airport} objects
      */
     public List<Airport> retrieveAirports() {
-        return repository.findAllAirports();
+        return Collections.unmodifiableList(repository.findAllAirports());
     }
 
     /**

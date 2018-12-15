@@ -1,5 +1,6 @@
 package net.j33r.flightcontrol.domain.aircraft;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class AircraftService {
      * @return a {@link List} of {@link Aircraft} objects
      */
     public List<Aircraft> retrieveAircrafts() {
-        return repository.findAll();
+        return Collections.unmodifiableList(repository.findAll());
     }
 
     /**
