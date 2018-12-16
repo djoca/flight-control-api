@@ -22,12 +22,12 @@ class FlightDeserializer extends JsonDeserializer<FlightWrapper> {
         final ObjectCodec codec = parser.getCodec();
         final JsonNode node = codec.readTree(parser);
 
-        final Short number = node.get("flightNumber").shortValue();
+        final Short number = (short) node.get("flightNumber").asInt();
         final String companyName = node.get("companyName").asText();
-        final Long aircraftId = node.get("aircraft").get("id").longValue();
-        final Long pilotId = node.get("pilot").get("id").longValue();
-        final Long originId = node.get("origin").get("id").longValue();
-        final Long destinationId = node.get("destination").get("id").longValue();
+        final Long aircraftId = node.get("aircraft").get("id").asLong();
+        final Long pilotId = node.get("pilot").get("id").asLong();
+        final Long originId = node.get("origin").get("id").asLong();
+        final Long destinationId = node.get("destination").get("id").asLong();
         final String departureTime = node.get("departureTime").asText();
 
         return new FlightWrapper(number, companyName, aircraftId, pilotId, originId, destinationId, departureTime);
