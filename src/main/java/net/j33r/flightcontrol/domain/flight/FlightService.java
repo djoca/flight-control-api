@@ -31,6 +31,14 @@ public class FlightService {
     }
 
     /**
+     * Retrieve a {@link List} of {@link Flight} objects filtered by a search
+     * string.
+     */
+    public List<Flight> retrieveFlights(String search) {
+        return Collections.unmodifiableList(repository.searchFlights(search));
+    }
+
+    /**
      * Retrieve a Flight by its identifier
      *
      * @param id

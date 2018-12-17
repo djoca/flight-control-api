@@ -37,8 +37,8 @@ public class FlightControlAPIController {
      * @return a JSON String with flight informations.
      */
     @GetMapping(value = "/flights", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public FlightListWrapper flights() {
-        final List<Flight> flights = applicationService.retrieveFlights();
+    public FlightListWrapper flights(@RequestParam(required = false) final String search) {
+        final List<Flight> flights = applicationService.retrieveFlights(search);
         return new FlightListWrapper(flights);
     }
 
@@ -59,8 +59,8 @@ public class FlightControlAPIController {
      * Creates a new flight
      *
      * @param flightWrapper
-     *            an instance of a {@link FlightWrapper} deserialized from a
-     *            json string
+     *            an instance of a {@link FlightWrapper} deserialized from a json
+     *            string
      * @throws FlightControlException
      *             if the flight could not be created
      */
@@ -85,8 +85,7 @@ public class FlightControlAPIController {
      * @param id
      *            the {@link Flight} id
      * @param action
-     *            a String representing a flight action (DELAY, TAKE_OFF or
-     *            LAND)
+     *            a String representing a flight action (DELAY, TAKE_OFF or LAND)
      * @throws FlightControlException
      *             if the action could not be executed
      */

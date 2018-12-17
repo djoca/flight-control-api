@@ -85,6 +85,20 @@ public class FlightControlAPIControllerTest {
         assertTrue(jsonObject.isNull("arrivalTime"));
     }
 
+    @Test
+    public void flightSearch() throws Exception {
+        final MockHttpServletResponse response = mockMvc.perform(get("/flights?search=GRU")).andReturn().getResponse();
+        final String jsonResponse = response.getContentAsString();
+        final JSONArray jsonArray = new JSONArray(jsonResponse);
+
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertTrue(jsonArray.length() == 1);
+
+        final JSONObject jsonObject = jsonArray.getJSONObject(0);
+        assertEquals(2, jsonObject.getInt("id"));
+        assertEquals("GRU", jsonObject.getString("origin"));
+    }
+
     /**
      * Tests if the API returns a valid JSON response with detailed flight
      * information.

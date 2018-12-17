@@ -39,8 +39,8 @@ public class FlightControlApplicationService {
      *
      * @return a List of Flight objects
      */
-    public List<Flight> retrieveFlights() {
-        return flightService.retrieveFlights();
+    public List<Flight> retrieveFlights(final String search) {
+        return search == null ? flightService.retrieveFlights() : flightService.retrieveFlights(search);
     }
 
     /**
