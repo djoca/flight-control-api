@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -75,5 +77,22 @@ public class FlightControlAPIController {
 
         applicationService.createFlight(number, companyName, aircraftId, pilotId, originId, destinationId,
                 departureTime);
+    }
+
+    /**
+     * Changes the status of a flight as a result of a flight action.
+     *
+     * @param id
+     *            the {@link Flight} id
+     * @param action
+     *            a String representing a flight action (DELAY, TAKE_OFF or
+     *            LAND)
+     * @throws FlightControlException
+     *             if the action could not be executed
+     */
+    @PutMapping(value = "/flights/{id}")
+    public void flightAction(@PathVariable final Long id, @RequestParam final String action)
+            throws FlightControlException {
+        applicationService.changeStatus(id, action);
     }
 }

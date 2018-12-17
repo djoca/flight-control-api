@@ -19,6 +19,8 @@ public class FlightService {
 
     private final FlightRepository repository;
 
+    private final FlightActionFactory flightActionFactory;
+
     /**
      * Retrieve a {@link List} of {@link Flight} objects.
      *
@@ -75,49 +77,20 @@ public class FlightService {
     }
 
     /**
-     * Sets a flight as FLYING.
+     * Change the status of a {@link Flight} as a result of a flight action.
      *
      * @param id
      *            the flight id
-     * @throws FlightNotFoundException
-     *             if the id is not found
-     * @return {@link Flight}
+     * @param actionType
+     *            the action type
+     * @return a {@link Flight} with the status changed
+     * @throws FlightException
+     *             if the status could not be changed
      */
-    public Flight takeOffFlight(final Long id) throws FlightException {
+    public Flight changeStatus(final Long id, final FlightActionType actionType) throws FlightException {
+        final FlightAction action = flightActionFactory.get(actionType);
         final Flight flight = retrieveFlight(id);
-        flight.takeOff();
-        repository.save(flight);
-        return flight;
-    }
-
-    /**
-     * Sets a flight as LANDED.
-     *
-     * @param id
-     *            the flight id
-     * @throws FlightNotFoundException
-     *             if the id is not found
-     * @return {@link Flight}
-     */
-    public Flight landFlight(final Long id) throws FlightException {
-        final Flight flight = retrieveFlight(id);
-        flight.land();
-        repository.save(flight);
-        return flight;
-    }
-
-    /**
-     * Sets a flight as DELAYED.
-     *
-     * @param id
-     *            the flight id
-     * @throws FlightNotFoundException
-     *             if the id is not found
-     * @return {@link Flight}
-     */
-    public Flight delayFlight(final Long id) throws FlightException {
-        final Flight flight = retrieveFlight(id);
-        flight.delay();
+        action.execute(flight);
         repository.save(flight);
         return flight;
     }

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.time.LocalDateTime;
@@ -167,6 +168,30 @@ public class FlightControlAPIControllerTest {
         final MockHttpServletResponse response = requestFlightCreation((short) 123, "TAM", 1L, 1L, 2L, 3L, tomorrow);
 
         assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+    }
+
+    /**
+     * Tests a flight action
+     *
+     * @throws Exception
+     */
+    @Test
+    public void flightAction() throws Exception {
+        final MockHttpServletResponse response = mockMvc.perform(put("/flights/1").param("action", "LAND")).andReturn()
+                .getResponse();
+
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+    }
+
+    /**
+     * Tests an invalid flight action
+     */
+    @Test
+    public void invalidFlightAction() throws Exception {
+        final MockHttpServletResponse response = mockMvc.perform(put("/flights/2").param("action", "TAKE_OFF"))
+                .andReturn().getResponse();
+
+        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
     }
 
     /**

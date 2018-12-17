@@ -10,6 +10,7 @@ import net.j33r.flightcontrol.domain.aircraft.AircraftService;
 import net.j33r.flightcontrol.domain.airport.Airport;
 import net.j33r.flightcontrol.domain.airport.AirportService;
 import net.j33r.flightcontrol.domain.flight.Flight;
+import net.j33r.flightcontrol.domain.flight.FlightActionType;
 import net.j33r.flightcontrol.domain.flight.FlightDateTime;
 import net.j33r.flightcontrol.domain.flight.FlightException;
 import net.j33r.flightcontrol.domain.flight.FlightNotFoundException;
@@ -87,6 +88,10 @@ public class FlightControlApplicationService {
         return flightService.createFlight(number, companyName, aircraft, pilot, origin, destination, scheduledTime);
     }
 
+    public Flight changeStatus(final Long id, final String action) throws FlightControlException {
+        return flightService.changeStatus(id, FlightActionType.valueOf(action));
+    }
+
     /**
      * Retrieve a {@link List} of {@link Aircraft} objects.
      *
@@ -113,5 +118,4 @@ public class FlightControlApplicationService {
     public List<Pilot> retrievePilots() {
         return pilotService.retrievePilots();
     }
-
 }

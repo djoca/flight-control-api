@@ -371,7 +371,15 @@ public class Flight {
     /**
      * Change the state of this flight to {@link FlightStatus.FLYING}
      */
-    void takeOff() {
+    void takeOff() throws FlightException {
+        if (FlightStatus.FLYING.equals(status)) {
+            throw new FlightActionException("This flight is already FLYING");
+        }
+
+        if (FlightStatus.LANDED.equals(status)) {
+            throw new FlightActionException("This flight has already LANDED");
+        }
+
         departureTime = FlightDateTime.now();
         status = FlightStatus.FLYING;
     }
@@ -379,7 +387,11 @@ public class Flight {
     /**
      * Change the state of this flight to {@link FlightStatus.LANDED}
      */
-    void land() {
+    void land() throws FlightException {
+        if (!FlightStatus.FLYING.equals(status)) {
+            throw new FlightActionException("This flight is not FLYING");
+        }
+
         arrivalTime = FlightDateTime.now();
         status = FlightStatus.LANDED;
     }
@@ -387,7 +399,15 @@ public class Flight {
     /**
      * Change the state of this flight to {@link FlightStatus.DELAYED}
      */
-    void delay() {
+    void delay() throws FlightException {
+        if (FlightStatus.FLYING.equals(status)) {
+            throw new FlightActionException("This flight is already FLYING");
+        }
+
+        if (FlightStatus.LANDED.equals(status)) {
+            throw new FlightActionException("This flight has already LANDED");
+        }
+
         status = FlightStatus.DELAYED;
     }
 

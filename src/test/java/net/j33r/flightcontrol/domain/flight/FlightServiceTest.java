@@ -110,9 +110,9 @@ public class FlightServiceTest {
         final Flight flight = flightService.retrieveFlight(id);
         assertEquals(FlightStatus.ON_TIME, flight.getStatus());
 
-        final Flight flyingFlight = flightService.delayFlight(id);
-        assertEquals(FlightStatus.DELAYED, flyingFlight.getStatus());
-        assertEquals(flight.getDepartureTime(), flyingFlight.getDepartureTime());
+        final Flight delayedFlight = flightService.changeStatus(id, FlightActionType.DELAY);
+        assertEquals(FlightStatus.DELAYED, delayedFlight.getStatus());
+        assertEquals(flight.getDepartureTime(), delayedFlight.getDepartureTime());
     }
 
     @Test
@@ -122,7 +122,7 @@ public class FlightServiceTest {
         final Flight flight = flightService.retrieveFlight(id);
         assertEquals(FlightStatus.ON_TIME, flight.getStatus());
 
-        final Flight flyingFlight = flightService.takeOffFlight(id);
+        final Flight flyingFlight = flightService.changeStatus(id, FlightActionType.TAKE_OFF);
         assertEquals(FlightStatus.FLYING, flyingFlight.getStatus());
         assertNotEquals(flight.getDepartureTime(), flyingFlight.getDepartureTime());
     }
@@ -135,8 +135,27 @@ public class FlightServiceTest {
         assertEquals(FlightStatus.FLYING, flight.getStatus());
         assertNull(flight.getArrivalTime());
 
-        final Flight landedFlight = flightService.landFlight(id);
+        final Flight landedFlight = flightService.changeStatus(id, FlightActionType.LAND);
         assertEquals(FlightStatus.LANDED, landedFlight.getStatus());
         assertNotNull(landedFlight.getArrivalTime());
+    }
+
+    @Test
+    public void incorrectFlightActions() throws Exception {
+        assertIncorrectFlightAction(1L, FlightActionType.DELAY);
+        assertIncorrectFlightAction(1L, FlightActionType.TAKE_OFF);
+        assertIncorrectFlightAction(2L, FlightActionType.DELAY);
+        assertIncorrectFlightAction(2L, FlightActionType.TAKE_OFF);
+        assertIncorrectFlightAction(2L, FlightActionType.LAND);
+        assertIncorrectFlightAction(3L, FlightActionType.LAND);
+    }
+
+    private void assertIncorrectFlightAction(final Long id, final FlightActionType actionType) throws Exception {
+        try {
+            flightService.changeStatus(id, actionType);
+            fail("Should throw FlightException");
+        } catch (final FlightException e) {
+            // Expected exception
+        }
     }
 }
