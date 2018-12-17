@@ -3,6 +3,9 @@ package net.j33r.flightcontrol.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +32,8 @@ public class FlightControlApplicationServiceTest {
         final Long pilotId = 2L;
         final Long originAirportId = 3L;
         final Long destinationAirportId = 5L;
-        final String scheduledTime = "13/12/2018 20:40";
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+        final String scheduledTime = LocalDateTime.now().plusDays(1).format(formatter);
 
         final Flight flight = applicationService.createFlight(number, companyName, aircraftId, pilotId, originAirportId,
                 destinationAirportId, scheduledTime);

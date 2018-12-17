@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.sql.DataSource;
 
 import org.junit.Before;
@@ -43,7 +46,7 @@ public class FlightServiceTest {
     }
 
     @Test
-    public void createFlight() {
+    public void createFlight() throws Exception {
         final int numberOfFlights = flightService.retrieveFlights().size();
 
         final City originCity = new City(1L, "São Paulo");
@@ -56,7 +59,9 @@ public class FlightServiceTest {
 
         final Aircraft aircraft = new Aircraft(1L, "Airbus", "A330", "PP-FTS", (short) 230, 2830, 230);
 
-        final FlightDateTime scheduledTime = FlightDateTime.parse("13/12/2018 13:20");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+        final String tomorrow = LocalDateTime.now().plusDays(1).format(formatter);
+        final FlightDateTime scheduledTime = FlightDateTime.parse(tomorrow);
 
         final Flight flight = flightService.createFlight((short) 308, "Azul", aircraft, pilot, originAirport,
                 destinationAirport, scheduledTime);
@@ -68,7 +73,7 @@ public class FlightServiceTest {
         assertEquals("Airbus", flight.getAircraftManufacturer());
         assertEquals("Jack Black", flight.getPilotName());
         assertNotNull(flight.getDepartureTime());
-        assertEquals("13/12/2018 13:20", flight.getDepartureTime().getFormattedDateTime());
+        assertEquals(tomorrow, flight.getDepartureTime().getFormattedDateTime());
         assertEquals("GRU", flight.getOriginAirportIataCode());
         assertEquals("CDG", flight.getDestinationAirportIataCode());
         assertNull(flight.getArrivalTime());
@@ -85,6 +90,16 @@ public class FlightServiceTest {
             fail("Should throw FlightNotFoundException");
         } catch (final FlightNotFoundException e) {
             assertEquals("Flight 152 not found", e.getMessage());
+        }
+    }
+
+    @Test
+    public void retrieveNullFlight() throws Exception {
+        try {
+            flightService.retrieveFlight(null);
+            fail("Should throw FlightNotFoundException");
+        } catch (final FlightNotFoundException e) {
+            assertEquals("Flight null not found", e.getMessage());
         }
     }
 

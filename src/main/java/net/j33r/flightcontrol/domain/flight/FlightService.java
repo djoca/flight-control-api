@@ -67,7 +67,8 @@ public class FlightService {
      * @return {@link Flight}
      */
     public Flight createFlight(final Short number, final String companyName, final Aircraft aircraft, final Pilot pilot,
-            final Airport origin, final Airport destination, final FlightDateTime scheduledTime) {
+            final Airport origin, final Airport destination, final FlightDateTime scheduledTime)
+            throws FlightException {
         final Flight flight = new Flight(number, companyName, aircraft, pilot, origin, destination, scheduledTime);
         repository.save(flight);
         return flight;

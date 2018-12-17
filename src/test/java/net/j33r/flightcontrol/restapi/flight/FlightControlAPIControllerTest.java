@@ -6,6 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.sql.DataSource;
 
 import org.json.JSONArray;
@@ -158,8 +161,10 @@ public class FlightControlAPIControllerTest {
      */
     @Test
     public void flightCreation() throws Exception {
-        final MockHttpServletResponse response = requestFlightCreation((short) 123, "TAM", 1L, 1L, 2L, 3L,
-                "21/12/2017 18:25");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+        final String tomorrow = LocalDateTime.now().plusDays(1).format(formatter);
+
+        final MockHttpServletResponse response = requestFlightCreation((short) 123, "TAM", 1L, 1L, 2L, 3L, tomorrow);
 
         assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }

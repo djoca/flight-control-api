@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
@@ -18,6 +19,7 @@ import lombok.Getter;
 @Table(name = "AIRPORT")
 @Getter
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Airport {
 
     /**

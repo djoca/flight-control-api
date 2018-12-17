@@ -129,7 +129,8 @@ public class Flight {
      * {@link FlightStatus.ON_TIME} status.
      */
     Flight(final Short number, final String companyName, final Aircraft aircraft, final Pilot pilot,
-            final Airport origin, final Airport destination, final FlightDateTime scheduledDepartureTime) {
+            final Airport origin, final Airport destination, final FlightDateTime scheduledDepartureTime)
+            throws FlightCreationException {
         id = null;
         this.number = number;
         this.companyName = companyName;
@@ -141,11 +142,54 @@ public class Flight {
         this.departureTime = null;
         this.arrivalTime = null;
         this.status = FlightStatus.ON_TIME;
+
+        validate();
     }
 
     /**
-     * The departure time is the actual departure time if the aircraft did take off
-     * or the scheduled departure time if it is on the ground yet.
+     * Validates the flight creation.
+     *
+     * @throws FlightCreationException
+     *             if any of the flight parameters is wrong.
+     */
+    private void validate() throws FlightCreationException {
+        validateNotNull("number", number);
+        validateNotNull("company name", companyName);
+        validateNotNull("aircraft", aircraft);
+        validateNotNull("pilot", pilot);
+        validateNotNull("origin", origin);
+        validateNotNull("destination", destination);
+        validateNotNull("departure time", scheduledDepartureTime);
+
+        if (scheduledDepartureTime.isPast()) {
+            throw new FlightCreationException("The departure time cannot be in the past");
+        }
+
+        if (origin.equals(destination)) {
+            throw new FlightCreationException("The origin and destination cannot be the same");
+        }
+    }
+
+    /**
+     * Validade if a parameter is null.
+     *
+     * @param paramName
+     *            the name of the parameter, used on the
+     *            {@link FlightCreationException} message.
+     * @param param
+     *            the object to be validated
+     * @throws FlightCreationException
+     *             if the parameter is null.
+     */
+    private void validateNotNull(final String paramName, final Object param) throws FlightCreationException {
+        if (param == null) {
+            throw new FlightCreationException(String.format("The %s should not be null", paramName));
+        }
+    }
+
+    /**
+     * The departure time is the actual departure time if the aircraft did take
+     * off or the scheduled departure time if it is on the ground yet.
      *
      * @return the actual departure time.
      */

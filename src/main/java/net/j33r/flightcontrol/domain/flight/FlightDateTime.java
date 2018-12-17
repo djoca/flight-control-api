@@ -64,4 +64,14 @@ public class FlightDateTime {
         return new FlightDateTime(localDateTime);
     }
 
+    /**
+     * Verifies if this {@link FlightDateTime} is in the past.
+     *
+     * @return true if this {@link FlightDateTime} is in the past. Otherwise
+     *         returns false.
+     */
+    public boolean isPast() {
+        return dateTime.isBefore(LocalDateTime.now());
+    }
+
 }
